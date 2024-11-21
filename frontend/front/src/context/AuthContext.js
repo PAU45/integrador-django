@@ -49,28 +49,26 @@ export const AuthProvider = ({children}) => {
     }
 
     const updateToken = async () => {
-        const response = await fetch('http://127.0.0.1:8000/api/token/refresh/', {
-            method: 'POST',
-            headers: {
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({refresh:authTokens?.refresh})
-        })
-       
-        const data = await response.json()
-        if (response.status === 200) {
-            setAuthTokens(data)
-            setUser(jwtDecode(data.access))
-            localStorage.setItem('authTokens',JSON.stringify(data))
-        } else {
-            logoutUser()
+        try {
+            let response = await fetch('http://localhost:8000/api/token/refresh/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ refresh: 'REFRESH_TOKEN' }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+    
+            let data = await response.json();
+            // Actualiza el token aquí
+        } catch (error) {
+            console.error('Failed to fetch', error);
         }
-
-        if(loading){
-            setLoading(false)
-        }
-    }
-
+    };
+    
     let contextData = {
         user:user,
         authTokens:authTokens,
