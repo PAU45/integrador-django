@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'api',
     'corsheaders',
+    'django_seed',
 ]
+
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -164,7 +166,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
